@@ -1,11 +1,13 @@
 package com.dws.challenge.web;
 
 import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.TransferRequest;
 import com.dws.challenge.exception.DuplicateAccountIdException;
 import com.dws.challenge.service.AccountsService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,6 +50,14 @@ public class AccountsController {
   public Account getAccount(@PathVariable String accountId) {
     log.info("Retrieving account for id {}", accountId);
     return this.accountsService.getAccount(accountId);
+  }
+
+  //This url is for transferring amount from one account to another account. 
+  //Used Post request because sensetive information should not be the part of url. Also request involves creation/maintainance.
+  @PostMapping(value="/transfer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> transfer(@RequestBody TransferRequest transferRequest) {
+    accountsService.transfer(transferRequest);
+    return ResponseEntity.ok().build();
   }
 
 }

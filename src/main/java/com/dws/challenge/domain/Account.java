@@ -3,6 +3,8 @@ package com.dws.challenge.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +13,12 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
+@Entity
 public class Account {
 
   @NotNull
   @NotEmpty
+  @Id
   private final String accountId;
 
   @NotNull
@@ -32,4 +36,5 @@ public class Account {
     this.accountId = accountId;
     this.balance = balance;
   }
+
 }
